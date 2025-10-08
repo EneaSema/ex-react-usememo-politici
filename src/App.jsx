@@ -1,4 +1,24 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+
+const Politicians = React.memo(({ name, image, position, biography }) => {
+  console.log("card");
+  return (
+    <div className="card">
+      <div>
+        <img src={image} alt={name} />
+      </div>
+      <div>
+        {" "}
+        <h3>{name}</h3>
+        <p>
+          Incarico:
+          <strong>{position}</strong>
+        </p>
+        <p>{biography}</p>
+      </div>
+    </div>
+  );
+});
 
 export default function App() {
   // variabili reattive
@@ -31,20 +51,13 @@ export default function App() {
       />
       {politicansFiltered &&
         politicansFiltered.map((p) => (
-          <div className="card" key={p.id}>
-            <div>
-              <img src={p.image} alt={p.name} />
-            </div>
-            <div>
-              {" "}
-              <h3>{p.name}</h3>
-              <p>
-                Incarico:
-                <strong>{p.position}</strong>
-              </p>
-              <p>{p.biography}</p>
-            </div>
-          </div>
+          <Politicians
+            key={p.id}
+            name={p.name}
+            image={p.image}
+            position={p.position}
+            biography={p.biography}
+          />
         ))}
     </>
   );
